@@ -3,6 +3,7 @@ package com.example.backend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -56,13 +57,16 @@ public class Film {
 
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
     @JsonIgnore
+    @BatchSize(size = 32)
     private List<FilmActor> filmActors;
 
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
     @JsonIgnore
+    @BatchSize(size = 32)
     private List<FilmCategory> filmCategories;
 
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
     @JsonIgnore
+    @BatchSize(size = 32)
     private List<Inventory> inventories;
 }

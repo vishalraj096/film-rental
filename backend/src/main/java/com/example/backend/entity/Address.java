@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,14 +48,17 @@ public class Address {
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     @JsonIgnore
+    @BatchSize(size = 32)
     private List<Customer> customers;
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     @JsonIgnore
+    @BatchSize(size = 32)
     private List<Staff> staffs;
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     @JsonIgnore
+    @BatchSize(size = 32)
     private List<Store> stores;
 
 }

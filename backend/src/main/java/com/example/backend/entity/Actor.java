@@ -1,6 +1,7 @@
 package com.example.backend.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.BatchSize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Actor {
     private LocalDateTime lastUpdate;
 
     @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
+    @BatchSize(size = 32)
     private List<FilmActor> filmActors = new ArrayList<>();
 
 }
