@@ -9,6 +9,7 @@ env:
   JAR_NAME: backend-0.0.1-SNAPSHOT.jar
   APP_DIR: /opt/film-rental-backend
   SERVICE_NAME: film-rental-backend
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-and-deploy:
@@ -27,7 +28,12 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      # ── 3. Build JAR (skip tests for speed; tests should run in a separate CI job) ──
+      # ── 3. Make Maven wrapper executable ──
+      - name: Make mvnw executable
+        working-directory: backend
+        run: chmod +x mvnw
+
+      # ── 4. Build JAR (skip tests for speed; tests should run in a separate CI job) ──
       - name: Build with Maven
         working-directory: backend
         run: ./mvnw clean package -DskipTests -B
